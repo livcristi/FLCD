@@ -1,0 +1,48 @@
+
+Specification
+
+Alphabet:
+	a. Lowercase (a-z) and uppercase letters (A-Z) of the English alphabet
+	b. Decimal digits (0-9)
+	c. Special characters !%*()-_+=/<>{}[];'"
+
+1. Lexic
+	a. Special symbols, representing:
+		- operators <- ++ + - * / mod < > <= == >= != and or
+		- separators [ ] { } ( ) ; space
+		- reserved words: start stop integer float bool string if other while loop read print
+	b. Identifiers
+	  - a sequence of letters, digits and underline, such that the first character is a letter; the rule is:
+
+		identifier = letter{(letter|digit|"_")}
+
+		letter = "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+
+		digit = "0" | "1" |...| "9"
+	c. Constants
+		1. integer:
+		
+			nonzerodigit = "1" | "2" | ... | "9"
+
+			integer = 0|["-"|"+"]nonzerodigit{digit}
+			
+		2. float:
+		
+			float = integer | (integer "." digit{digit})
+		
+		3. boolean:
+			
+			boolean_values = "TRUE"|"FALSE"
+			
+		4. character:
+			
+			special_symbol = "_" | "+" | "-" | "*" | "/" | ":"
+
+			constchar = 'char'
+
+			char = letter|digit|special_symbol
+		
+		5. string:
+			
+			string = """{char}"""
+		
