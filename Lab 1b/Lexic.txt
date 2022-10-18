@@ -4,7 +4,7 @@ Specification
 Alphabet:
 	a. Lowercase (a-z) and uppercase letters (A-Z) of the English alphabet
 	b. Decimal digits (0-9)
-	c. Special characters !%*()-_+=/<>{}[];'"
+	c. Special characters !%*()-_+=/<>{}[]:;'"
 
 1. Lexic
 	a. Special symbols, representing:
@@ -16,33 +16,33 @@ Alphabet:
 
 		identifier = letter{(letter|digit|"_")}
 
-		letter = "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+		letter = "A" | "B" | ... | "Z" | "a" | "b" | ... | "z".
 
-		digit = "0" | "1" |...| "9"
+		digit = "0" | "1" |...| "9".
 	c. Constants
 		1. integer:
 		
-			nonzerodigit = "1" | "2" | ... | "9"
+			nonzerodigit = "1" | "2" | ... | "9".
 
-			integer = 0|["-"|"+"]nonzerodigit{digit}
+			integer = 0|["-"|"+"]nonzerodigit{digit}.
 			
 		2. float:
 		
-			float = integer | (integer "." digit{digit})
+			float = integer | (integer "." digit{digit}).
 		
 		3. boolean:
 			
-			boolean_values = "TRUE"|"FALSE"
+			boolean_values = "TRUE" | "FALSE".
 			
 		4. character:
 			
-			special_symbol = "_" | "+" | "-" | "*" | "/" | ":"
+			special_symbol = "_" | "+" | "-" | "*" | "/" | ":".
 
-			constchar = 'char'
+			constchar = 'char'.
 
-			char = letter|digit|special_symbol
+			char = letter|digit|special_symbol.
 		
 		5. string:
 			
-			string = """{char}"""
+			string = """{char}""".
 		

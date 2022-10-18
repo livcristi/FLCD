@@ -1,0 +1,50 @@
+
+Syntactical Rules:
+
+program = "start" statement_list "stop".
+
+statement_list = {statement}.
+
+statement = (simple_statement ";") | bigger_statement.
+
+simple_statement = declaration | assignment | io_statement.
+
+declaration = type identifier.
+
+type = basic_type | array_type.
+
+basic_type = "integer" | "float" | "boolean" | "char" | "string".
+
+array_type = basic_type "[" number "]".
+
+number = nonzerodigit{digit}.
+
+assignment = identifier "<-" expression.
+
+expression = (expression "+" term) | (expression "-" term) | term.
+
+term = (term "*" factor) | (term "/" factor) | (term "mod" factor) | factor.
+
+factor = "(" expression ")" | identifier | constant.
+
+bigger_statement = if_statement | while_statement | loop_statement.
+
+if_statement = simple_if_statement [("other " if_statement) | ("other" block_statement)].
+
+simple_if_statement = "if(" condition ")" block_statement.
+
+condition = expression relation expression.
+
+block_statement = "{" statement_list "}".
+
+relation = "<" | "<=" | "==" | "!=" | ">=" | ">" | "or" | "and".
+
+while_statement = "while(" condition ")" block_statement [("other" block_statement)].
+
+loop_statement = "loop(" statement ";" condition ";" statement ")" block_statement.
+
+io_statement = in_statement | out_statement.
+
+in_statement = "read(" identifier ")".
+
+out_statement = "write(" (identifier|constant) | ")".
