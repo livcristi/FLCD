@@ -1,0 +1,22 @@
+start 
+	integer n;
+	integer[100] numbers;
+	integer i;
+	integer even_sum;
+	
+	read(n);
+	loop(i <- 0; i < n; i <- i + 1)
+	{
+		read(numbers[i]);
+	}
+	
+	loop(i <- 0; i < n; i <- i + 1) 
+	{
+		if(numbers[i] % 2 == 0)
+		{
+			even_sum <- even_sum + numbers[i];
+		}
+	}
+	
+	print(even_sum);
+stop
