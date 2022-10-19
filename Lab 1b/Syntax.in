@@ -19,7 +19,7 @@ array_type = basic_type "[" number "]".
 
 number = nonzerodigit{digit}.
 
-assignment = identifier "<-" expression.
+assignment = identifier "<-" expression | identifier "++" | identifier "--".
 
 expression = (expression "+" term) | (expression "-" term) | term.
 
@@ -33,7 +33,7 @@ if_statement = simple_if_statement [("other " if_statement) | ("other" block_sta
 
 simple_if_statement = "if(" condition ")" block_statement.
 
-condition = expression relation expression.
+condition = expression relation expression | "!(" expression relation expression ")".
 
 block_statement = "{" statement_list "}".
 

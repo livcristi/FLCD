@@ -8,7 +8,7 @@ Alphabet:
 
 1. Lexic
 	a. Special symbols, representing:
-		- operators <- ++ + - * / mod < > <= == >= != and or
+		- operators <- ++ -- + - * / mod < > <= == >= != and or
 		- separators [ ] { } ( ) ; space
 		- reserved words: start stop integer float bool string if other while loop read print
 	b. Identifiers
