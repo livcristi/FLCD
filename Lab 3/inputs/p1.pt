@@ -1,0 +1,28 @@
+start
+	integer a;
+	integer aux;
+	bool is_prime;
+	is_prime <- TRUE;
+	
+	read(a);
+	if(a < 2) 
+	{
+		is_prime <- FALSE;
+	}
+	if((a != 2) and (a mod 2 == 0))
+	{
+		is_prime <- FALSE;
+	}
+	
+	aux <- 3;
+	while((is_prime == TRUE) and (aux * aux <= a))
+	{
+		if(a mod aux == 0)
+		{
+			is_prime <- FALSE;
+		}
+		aux <- aux + 2;
+	}
+	
+	print(is_prime);
+stop
