@@ -17,16 +17,6 @@ class Scanner:
         with open('tokens.txt') as f_inp:
             self.__keywords = {line.strip() for line in f_inp.readlines()}
 
-    # Getters for the symbol tables and PIF
-    def get_id_table(self):
-        return self.__id_table.get_elements()
-
-    def get_const_table(self):
-        return self.__const_table.get_elements()
-
-    def get_pif(self):
-        return self.__pif.get_tokens()
-
     def scan_file(self, filename):
         self.__refresh_attributes()
 
@@ -71,8 +61,17 @@ class Scanner:
         # Return the pif
         return self.__pif.get_tokens(), self.__id_table.get_elements(), self.__const_table.get_elements()
 
+    # Getters for the symbol tables and PIF
+    def get_id_table(self):
+        return self.__id_table.get_elements()
+
+    def get_const_table(self):
+        return self.__const_table.get_elements()
+
+    def get_pif(self):
+        return self.__pif.get_tokens()
+    
     def __extract_token(self, program_text):
-        # todo: explicat pif si structura pif pentru documentatie
         current_token = ''
         while len(program_text) > 0:
             # Get the next character from the text
