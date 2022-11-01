@@ -1,0 +1,9 @@
+start
+	integer 7age; 
+	integer guess;
+	
+	guess <- 10;
+
+	print("Result);
+	print(guess);
+stop
