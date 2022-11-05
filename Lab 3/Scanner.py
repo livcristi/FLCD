@@ -130,7 +130,7 @@ class Scanner:
     @staticmethod
     def __check_in_alphabet(character):
         # Check if a character is in the allowed alphabet
-        return re.match('[a-zA-Z0-9/*\-+(){}\[\];\'\"!<=>_ \n\t]', character)
+        return re.match('[a-zA-Z0-9/*\-+(){}\[\];\'\"!.<=>_ \n\t]', character)
 
     @staticmethod
     def __check_separator(token):
