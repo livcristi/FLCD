@@ -49,9 +49,9 @@ class Scanner:
 
         # Print the answer
         if len(self.__lexical_errors) == 0:
-            print('The file is lexically correct')
+            print('The source code is lexically correct')
         else:
-            print('The file contains {} lexical errors: '.format(len(self.__lexical_errors)))
+            print('The source code contains {} lexical errors: '.format(len(self.__lexical_errors)))
             for lexical_error in self.__lexical_errors:
                 print(lexical_error)
 
@@ -97,6 +97,13 @@ class Scanner:
                 current_token += current_character
                 break
             current_token += current_character
+
+        # Check if the token is a condition
+        condition_tokens = list(filter(None, re.split('(<=|>=|!=|==|<-|<|>)', current_token)))
+        if len(condition_tokens) > 1:
+            program_text = "".join(condition_tokens[1:]) + program_text
+            return condition_tokens[0], program_text
+
         return current_token, program_text
 
     def __refresh_attributes(self):
@@ -137,7 +144,7 @@ class Scanner:
     @staticmethod
     def __check_identifier(token):
         # Check if the token is a valid identifier
-        return re.match("[a-zA-Z][a-zA-Z0-9_]*", token)
+        return re.fullmatch("[a-zA-Z][a-zA-Z0-9_]*", token)
 
     @staticmethod
     def __check_constant(token):
