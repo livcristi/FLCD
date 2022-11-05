@@ -7,4 +7,3 @@ if __name__ == '__main__':
     print("pif = ", pif)
     print("id_table = ", id_table)
     print("const_table = ", const_table)
-    print()

@@ -103,7 +103,6 @@ class Scanner:
         if len(condition_tokens) > 1:
             program_text = "".join(condition_tokens[1:]) + program_text
             return condition_tokens[0], program_text
-
         return current_token, program_text
 
     def __refresh_attributes(self):
