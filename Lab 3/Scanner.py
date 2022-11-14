@@ -1,10 +1,15 @@
 import re
 
+from FiniteAutomaton import FiniteAutomaton
 from PIF import PIF
 from ST import ST
 
 
 class Scanner:
+    # Read the finite automata
+    __id_fa = FiniteAutomaton().read_from_file('fa_files/fa-identifier.in')
+    __int_const_fa = FiniteAutomaton().read_from_file('fa_files/fa-int-constant.in')
+
     def __init__(self):
         self.__id_table = ST()
         self.__const_table = ST()
@@ -45,7 +50,8 @@ class Scanner:
                 self.__pif.add_token('id', st_position)
             else:
                 # If the token is not a keyword, nor identifier/constant, then it is a lexical error
-                self.__lexical_errors.append('Lexical error on line {} on token {}'.format(self.__line_counter, current_token))
+                self.__lexical_errors.append(
+                    'Lexical error on line {} on token {}'.format(self.__line_counter, current_token))
 
         # Print the answer
         if len(self.__lexical_errors) == 0:
@@ -70,7 +76,7 @@ class Scanner:
 
     def get_pif(self):
         return self.__pif.get_tokens()
-    
+
     def __extract_token(self, program_text):
         current_token = ''
         while len(program_text) > 0:
@@ -80,7 +86,8 @@ class Scanner:
 
             if not self.__check_in_alphabet(current_character):
                 # If the character is not in the alphabet, save the lexical error and stop the extraction
-                self.__lexical_errors.append('Lexical error on line {}, illegal character {}'.format(self.__line_counter, current_character))
+                self.__lexical_errors.append(
+                    'Lexical error on line {}, illegal character {}'.format(self.__line_counter, current_character))
                 break
             elif self.__check_space(current_character):
                 # If the character is a space, ignore it. But memorise the number of newlines (used for debugging)
@@ -128,6 +135,16 @@ class Scanner:
                 pif_file.write(''.join(str(column).ljust(10) for column in row) + "\n")
 
     @staticmethod
+    def __check_identifier(token):
+        # Check if the token is a valid identifier
+        # return re.fullmatch("[a-zA-Z][a-zA-Z0-9_]*", token)
+        return Scanner.__id_fa.verify_sequence(token)
+
+    @staticmethod
+    def __check_int_constant(token):
+        return Scanner.__int_const_fa.verify_sequence(token)
+
+    @staticmethod
     def __check_in_alphabet(character):
         # Check if a character is in the allowed alphabet
         return re.match('[a-zA-Z0-9/*\-+(){}\[\];\'\"!.<=>_ \n\t]', character)
@@ -141,13 +158,8 @@ class Scanner:
         return token in [' ', '\n', '\t']
 
     @staticmethod
-    def __check_identifier(token):
-        # Check if the token is a valid identifier
-        return re.fullmatch("[a-zA-Z][a-zA-Z0-9_]*", token)
-
-    @staticmethod
     def __check_constant(token):
         # Check if the token is an integer or float or boolean or character or string
-        return re.fullmatch("0|([+-]?[1-9][0-9]*)", token) or re.fullmatch("0|([+-]?[1-9][0-9]*)(\.([0-9]+))?", token) \
+        return Scanner.__check_int_constant(token) or re.fullmatch("0|([+-]?[1-9][0-9]*)(\.([0-9]+))?", token) \
                or re.fullmatch("(TRUE)|(FALSE)", token) or re.fullmatch("'[a-zA-Z0-9_+\-*/:]'", token) \
                or re.fullmatch('"[a-zA-Z0-9_+\-*/:]*"', token)
