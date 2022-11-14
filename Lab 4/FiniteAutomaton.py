@@ -1,10 +1,10 @@
 class FiniteAutomaton:
     def __init__(self):
-        self.__states = []
-        self.__alphabet = []
+        self.__states = set()
+        self.__alphabet = set()
         self.__transitions = {}
         self.__initial_state = None
-        self.__final_states = []
+        self.__final_states = set()
 
     def get_states(self):
         return self.__states
@@ -28,10 +28,10 @@ class FiniteAutomaton:
         self.__clear_fields()
         with open(filename) as inp_file:
             # Read the valid states, alphabet, initial state and final states
-            self.__states = inp_file.readline().strip().split()
-            self.__alphabet = inp_file.readline().strip().split()
+            self.__states = {state for state in inp_file.readline().strip().split()}
+            self.__alphabet = {symbol for symbol in inp_file.readline().strip().split()}
             self.__initial_state = inp_file.readline().strip().split()[0]
-            self.__final_states = inp_file.readline().strip().split()
+            self.__final_states = {element for element in inp_file.readline().strip().split()}
 
             # Read the transition operations
             for line in inp_file.readlines():
@@ -50,15 +50,12 @@ class FiniteAutomaton:
         if not self.is_dfa():
             return None
         current_state = self.__initial_state
-        while len(sequence) > 0:
-            # Get the current 'letter' (token) from the sequence
-            current_token = sequence[0]
-            sequence = sequence[1:]
 
-            # Check if there is a transition with the current state and token
-            if (current_state, current_token) not in self.__transitions.keys():
+        for symbol in sequence:
+            # Check if there is a transition with the current state and symbol
+            if (current_state, symbol) not in self.__transitions.keys():
                 return False
-            current_state = self.__transitions[(current_state, current_token)][0]
+            current_state = self.__transitions[(current_state, symbol)][0]
 
         if current_state in self.__final_states:
             return True
@@ -66,11 +63,11 @@ class FiniteAutomaton:
             return False
 
     def __clear_fields(self):
-        self.__states = []
-        self.__alphabet = []
+        self.__states = set()
+        self.__alphabet = set()
         self.__transitions = {}
         self.__initial_state = None
-        self.__final_states = []
+        self.__final_states = set()
 
     @staticmethod
     def __is_file_data_valid(filename):
@@ -82,10 +79,10 @@ class FiniteAutomaton:
                 # The file must have at least 4 rows (states, alphabet, initial, final state)
                 return False
 
-            valid_states = lines[0].strip().split()
+            valid_states = {state for state in lines[0].strip().split()}
 
             # Retrieve the alphabet
-            alphabet = lines[1].strip().split()
+            alphabet = {symbol for symbol in lines[1].strip().split()}
 
             # Retrieve the initial states
             line = lines[2].strip().split()

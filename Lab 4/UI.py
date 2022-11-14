@@ -11,10 +11,10 @@ class UI:
             print('The given file does not have data in a valid format. The FA was not read')
 
     def __display_states(self):
-        print('The states are: ' + str(self.__FA.get_states()))
+        print('The states are: ' + ' '.join(self.__FA.get_states()))
 
     def __display_alphabet(self):
-        print('The alphabet is: ' + str(self.__FA.get_alphabet()))
+        print('The alphabet is: ' + ' '.join(self.__FA.get_alphabet()))
 
     def __display_transitions(self):
         transitions = self.__FA.get_transitions()
@@ -27,7 +27,7 @@ class UI:
         print(self.__FA.get_initial_state())
 
     def __display_final_states(self):
-        print(self.__FA.get_final_states())
+        print(' '.join(self.__FA.get_final_states()))
 
     def __check_dfa(self):
         if self.__FA.is_dfa():
